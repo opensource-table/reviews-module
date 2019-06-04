@@ -79,3 +79,42 @@ module.exports.getSummary = (restaurantId, callback) => {
 
   makeQuery(client, sql, callback);
 };
+
+module.exports.createReview = (reviewData, callback) => {
+  const client = new Client({
+    user: dbconf.role,
+    host: dbconf.host,
+    database: 'reviews',
+    password: dbconf.password,
+    port: 5432
+  });
+
+  const insertReview = `INSERT INTO reviews
+    (
+      restaurant,
+      diner,
+      text,
+      date,
+      overall,
+      food,
+      service,
+      ambience,
+      wouldrecommend,
+      tags
+    ) 
+    VALUES
+    (
+      ${reviewData.restaurant},
+      ${reviewData.diner},
+      ${reviewData.text},
+      ${reviewData.date},
+      ${reviewData.overall},
+      ${reviewData.food},
+      ${reviewData.service},
+      ${reviewData.ambience},
+      ${reviewData.wouldrecommend},
+      ${reviewData.tags},
+    )`;
+  
+    makeQuery(client, insertReviews, callback);
+}
