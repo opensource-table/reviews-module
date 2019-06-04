@@ -1,4 +1,4 @@
-# Reviews and Impressions Module
+# Reviews Module
 
 > This module is part of the OpenSource Table app. It displays reviews for over 10 million
 restaurants around the world.
@@ -12,7 +12,6 @@ restaurants around the world.
 
 1. [Usage](#Usage)
 1. [Requirements](#requirements)
-1. [Development](#development)
 1. [API](#api)
 
 ## Usage
@@ -72,7 +71,7 @@ An `nvmrc` file is included if using [nvm](https://github.com/creationix/nvm).
 
 ## API
 
-### Request Endpoints
+### Restful API Routes
 
 | Endpoint      | Type   | Operation                                         |
 |---------------|--------|---------------------------------------------------|
