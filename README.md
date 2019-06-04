@@ -73,63 +73,13 @@ An `nvmrc` file is included if using [nvm](https://github.com/creationix/nvm).
 
 ## API
 
-### Reviews Summary
+### Request Endpoints
 
-#### HTTP request
+| Endpoint     | Type   | Operation           |
+|--------------|--------|---------------------|
+| `/:id/reviews`| GET    | Get all reviews     |
+| `/:id/reviews`| POST   | Create a review     |
+| `/:id/reviews`| PUT    | Update a review     |
+| `/:id/reviews`| DELETE | Delete a review     |
 
-GET http://127.0.0.1:3010/:id/summary
 
-##### Parameters
-**id**  
-**integer**  
-
-The **id** parameter specifies the unique id of the restaurant being queried. Seeded test values range from 1-5.
-
-##### Response
-
-If successful, this method returns a response body with the following structure:
-
-{  
-  "location": **_string_**,  
-  "noise": **_string_**,  
-  "recommendPercent": **_integer_**,  
-  "valueRating": **_string_**,  
-  "averageOverall": **_string_**,  
-  "averageFood": **_string_**,  
-  "averageAmbience": **_string_**,  
-  "averageService": **_string_**  
-}  
-
-### Restaurant Reviews
-
-#### HTTP Request
-
-GET http://127.0.0.1:3010/:id/reviews
-
-##### Parameters
-**id**  
-**integer**  
-
-The **id** parameter specifies the unique id of the restaurant being queried. Seeded test values range from 1-5.
-
-##### Response
-
-If successful, this method returns an array containing objects with the following structure:
-
-{  
-  "id": **_integer_**,  
-  "restaurant": **_integer_**,  
-  "diner": **_integer_**,  
-  "text": **_string_**,  
-  "date": **_date_**,  
-  "overall": **_integer_**,  
-  "food": **_integer_**,  
-  "service": **_integer_**,  
-  "ambience": **_integer_**,  
-  "wouldrecommend": **_boolean_**  
-  "tags": **_string_**,  
-  "firstname": **_string_**,  
-  "lastname": **_string_**,  
-  "city": **_string_**,  
-  "totalreviews": **_integer_**  
-}
