@@ -52,6 +52,16 @@ app.post('/:id/reviews', (req, res) => {
       res.status(201).send('Successfully created review.');
     }
   })
-})
+});
+
+app.put('/:id/reviews', (req, res) => {
+  db.editReview(req.body, (err) => {
+    if (err) {
+      res.status(400).end();
+    } else {
+      res.status(200).send('Successfully edited review.');
+    }
+  })
+});
 
 module.exports = app;

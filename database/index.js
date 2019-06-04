@@ -118,3 +118,20 @@ module.exports.createReview = (reviewData, callback) => {
   
     makeQuery(client, insertReviews, callback);
 }
+
+module.exports.editReview = (reviewData, callback) => {
+  const client = new Client({
+    user: dbconf.role,
+    host: dbconf.host,
+    database: 'reviews',
+    password: dbconf.password,
+    port: 5432
+  });
+
+  const editReview = `UPDATE reviews
+    SET text = ${reviewData.text}
+    WHERE id = ${reviewData.id}
+    `;
+  
+    makeQuery(client, insertReviews, callback);
+}
