@@ -116,7 +116,7 @@ module.exports.createReview = (reviewData, callback) => {
       ${reviewData.tags},
     )`;
   
-    makeQuery(client, insertReviews, callback);
+    makeQuery(client, insertReview, callback);
 }
 
 module.exports.editReview = (reviewData, callback) => {
@@ -133,5 +133,19 @@ module.exports.editReview = (reviewData, callback) => {
     WHERE id = ${reviewData.id}
     `;
   
-    makeQuery(client, insertReviews, callback);
+    makeQuery(client, editReview, callback);
+}
+
+module.exports.deleteReview = (reviewData, callback) => {
+  const client = new Client({
+    user: dbconf.role,
+    host: dbconf.host,
+    database: 'reviews',
+    password: dbconf.password,
+    port: 5432
+  });
+
+  const deleteReview = `DELETE FROM reviews WHERE id = ${reviewData.id}`;
+  
+    makeQuery(client, deleteReview, callback);
 }

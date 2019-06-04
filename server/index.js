@@ -64,4 +64,14 @@ app.put('/:id/reviews', (req, res) => {
   })
 });
 
+app.delete('/:id/reviews', (req, res) => {
+  db.deleteReview(req.body), (err) => {
+    if (err) {
+      res.status(404).end();
+    } else {
+      res.status(204).send('Successfully deleted review.');
+    }
+  }
+})
+
 module.exports = app;
