@@ -75,11 +75,11 @@ An `nvmrc` file is included if using [nvm](https://github.com/creationix/nvm).
 
 ### Request Endpoints
 
-| Endpoint     | Type   | Operation           |
-|--------------|--------|---------------------|
-| `/:id/reviews`| GET    | Get all reviews     |
-| `/:id/reviews`| POST   | Create a review     |
-| `/:id/reviews`| PUT    | Update a review     |
-| `/:id/reviews`| DELETE | Delete a review     |
+| Endpoint      | Type   | Operation                                         |
+|---------------|--------|---------------------------------------------------|
+| `/:id/reviews`| GET    | Get all reviews for a specific restaurant         |
+| `/:id/reviews`| POST   | Create a new review for a specific restaurant     |
+| `/:id/reviews`| PUT    | Edit an existing review for a specific restaurant |
+| `/:id/reviews`| DELETE | Delete a review for a specific restaurant         |
 
 
