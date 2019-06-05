@@ -80,4 +80,182 @@ An `nvmrc` file is included if using [nvm](https://github.com/creationix/nvm).
 | `/:id/reviews`| PUT    | Edit an existing review for a specific restaurant |
 | `/:id/reviews`| DELETE | Delete a review for a specific restaurant         |
 
+**Get All Reviews**
+----
+  Returns json data of all reviews for a specific restaurant.
 
+* **URL**
+
+  /:id/reviews
+
+* **Method:**
+
+  `GET`
+  
+*  **URL Params**
+
+   **Required:**
+ 
+   `id=[integer] (between 1 and 10,000,000)`
+
+* **Data Params**
+
+  None
+
+* **Success Response:**
+
+  * **Code:** 200 OK <br />
+    **Content:** `{id : 12, text: "This place was great! Highly recommend!", date: "2019-02-27", overall_score: 4, food_score: 3, service_score: 3, ambience_score: 5, is_recommended: true, tags: ["great food", "wonderful ambience", "fried chicken"}`
+ 
+* **Error Response:**
+
+  * **Code:** 404 NOT FOUND <br />
+    **Content:** `{ error : "No reviews found for requested restaurant" }`
+
+* **Sample Call:**
+
+  ```javascript
+    $.ajax({
+      url: "/1400/reviews",
+      dataType: "json",
+      type : "GET",
+      success : function(r) {
+        console.log(r);
+      }
+    });
+  ```
+
+**Post New Review**
+----
+  Creates a new review in the database based on user input.
+
+* **URL**
+
+  /:id/reviews
+
+* **Method:**
+
+  `POST`
+  
+*  **URL Params**
+
+   **Required:**
+ 
+   `id=[integer] (between 1 and 10,000,000)`
+
+* **Data Params**
+
+  `{text: "string", date: "stringified date", overall_score: int, food_score: int, service_score: int, ambience_score: int, is_recommended: boolean, tags: [Array of strings]}`
+
+* **Success Response:**
+
+  * **Code:** 201 CREATED <br />
+    **Content:** `"Review successfully posted!"`
+ 
+* **Error Response:**
+
+  * **Code:** 422 UNPROCESSABLE ENTITY <br />
+    **Content:** `{ error : "Could not process review" }`
+
+* **Sample Call:**
+
+  ```javascript
+    $.ajax({
+      url: "/1400/reviews",
+      data: {text: "This place was awful! Definitely do not come here!", date: "2019-01-12", overall_score: 1, food_score: 1, service_score: 1, ambience_score: 2, is_recommended: false, tags: ["awful", "bad service", "cold food"},
+      type : "POST",
+      success : function(r) {
+        console.log(r);
+      }
+    });
+  ```
+
+**Edit Review**
+----
+  Edits a review that already exists in the database.
+
+* **URL**
+
+  /:id/reviews
+
+* **Method:**
+
+  `PUT`
+  
+*  **URL Params**
+
+   **Required:**
+ 
+   `id=[integer] (between 1 and 10,000,000)`
+
+* **Data Params**
+
+  `{text: "string", date: "stringified date", overall_score: int, food_score: int, service_score: int, ambience_score: int, is_recommended: boolean, tags: [Array of strings]}`
+
+* **Success Response:**
+
+  * **Code:** 200 OK <br />
+    **Content:** `"Review successfully edited!"`
+ 
+* **Error Response:**
+
+  * **Code:** 400 BAD REQUEST <br />
+    **Content:** `{ error : "Could not edit review" }`
+
+* **Sample Call:**
+
+  ```javascript
+    $.ajax({
+      url: "/1400/reviews",
+      data: {text: "I have edited my review: This place was much better this time!", date: "2019-01-21", overall_score: 3, food_score: 4, service_score: 4, ambience_score: 2, is_recommended: true, tags: ["better", "good service", "tasty"},
+      type : "PUT",
+      success : function(r) {
+        console.log(r);
+      }
+    });
+  ```
+
+**Delete Review**
+----
+  Delete a review that already exists in the database.
+
+* **URL**
+
+  /:id/reviews
+
+* **Method:**
+
+  `DELETE`
+  
+*  **URL Params**
+
+   **Required:**
+ 
+   `id=[integer] (between 1 and 10,000,000)`
+
+* **Data Params**
+
+  `{id: int}`
+
+* **Success Response:**
+
+  * **Code:** 204 NO CONTENT <br />
+    **Content:** `"Review successfully deleted!"`
+ 
+* **Error Response:**
+
+  * **Code:** 404 NOT FOUND <br />
+    **Content:** `{ error : "Could not delete review" }`
+
+* **Sample Call:**
+
+  ```javascript
+    $.ajax({
+      url: "/1400/reviews",
+      data: {id: 1241241},
+      type : "DELETE",
+      success : function(r) {
+        console.log(r);
+      }
+    });
+  ```
