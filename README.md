@@ -104,7 +104,7 @@ An `nvmrc` file is included if using [nvm](https://github.com/creationix/nvm).
 
 * **Success Response:**
 
-  * **Code:** 200 <br />
+  * **Code:** 200 OK <br />
     **Content:** `{id : 12, text: "This place was great! Highly recommend!", date: "2019-02-27", overall_score: 4, food_score: 3, service_score: 3, ambience_score: 5, is_recommended: true, tags: ["great food", "wonderful ambience", "fried chicken"}`
  
 * **Error Response:**
@@ -119,6 +119,51 @@ An `nvmrc` file is included if using [nvm](https://github.com/creationix/nvm).
       url: "/1400/reviews",
       dataType: "json",
       type : "GET",
+      success : function(r) {
+        console.log(r);
+      }
+    });
+  ```
+
+**Post New Review**
+----
+  Creates a new review in the database based on user input.
+
+* **URL**
+
+  /:id/reviews
+
+* **Method:**
+
+  `POST`
+  
+*  **URL Params**
+
+   **Required:**
+ 
+   `id=[integer] (between 1 and 10,000,000)`
+
+* **Data Params**
+
+  `{text: "string", date: "stringified date", overall_score: int, food_score: int, service_score: int, ambience_score: int, is_recommended: boolean, tags: [Array of strings]}`
+
+* **Success Response:**
+
+  * **Code:** 201 CREATED <br />
+    **Content:** `"Review successfully posted!"`
+ 
+* **Error Response:**
+
+  * **Code:** 422 UNPROCESSABLE ENTITY <br />
+    **Content:** `{ error : "Could not process review" }`
+
+* **Sample Call:**
+
+  ```javascript
+    $.ajax({
+      url: "/1400/reviews",
+      data: {text: "This place was awful! Definitely do not come here!", date: "2019-01-12", overall_score: 1, food_score: 1, service_score: 1, ambience_score: 2, is_recommended: false, tags: ["awful", "bad service", "cold food"},
+      type : "POST",
       success : function(r) {
         console.log(r);
       }
