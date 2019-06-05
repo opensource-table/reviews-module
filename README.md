@@ -80,4 +80,47 @@ An `nvmrc` file is included if using [nvm](https://github.com/creationix/nvm).
 | `/:id/reviews`| PUT    | Edit an existing review for a specific restaurant |
 | `/:id/reviews`| DELETE | Delete a review for a specific restaurant         |
 
+**Get All Reviews**
+----
+  Returns json data of all reviews for a specific restaurant.
 
+* **URL**
+
+  /:id/reviews
+
+* **Method:**
+
+  `GET`
+  
+*  **URL Params**
+
+   **Required:**
+ 
+   `id=[integer] (between 1 and 10,000,000)`
+
+* **Data Params**
+
+  None
+
+* **Success Response:**
+
+  * **Code:** 200 <br />
+    **Content:** `{id : 12, text: "This place was great! Highly recommend!", date: "2019-02-27", overall_score: 4, food_score: 3, service_score: 3, ambience_score: 5, is_recommended: true, tags: ["great food", "wonderful ambience", "fried chicken"}`
+ 
+* **Error Response:**
+
+  * **Code:** 404 NOT FOUND <br />
+    **Content:** `{ error : "No reviews found for requested restaurant" }`
+
+* **Sample Call:**
+
+  ```javascript
+    $.ajax({
+      url: "/1400/reviews",
+      dataType: "json",
+      type : "GET",
+      success : function(r) {
+        console.log(r);
+      }
+    });
+  ```
