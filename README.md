@@ -169,3 +169,48 @@ An `nvmrc` file is included if using [nvm](https://github.com/creationix/nvm).
       }
     });
   ```
+
+  **Edit Review**
+----
+  Edits a review that already exists in the database.
+
+* **URL**
+
+  /:id/reviews
+
+* **Method:**
+
+  `PUT`
+  
+*  **URL Params**
+
+   **Required:**
+ 
+   `id=[integer] (between 1 and 10,000,000)`
+
+* **Data Params**
+
+  `{text: "string", date: "stringified date", overall_score: int, food_score: int, service_score: int, ambience_score: int, is_recommended: boolean, tags: [Array of strings]}`
+
+* **Success Response:**
+
+  * **Code:** 200 OK <br />
+    **Content:** `"Review successfully edited!"`
+ 
+* **Error Response:**
+
+  * **Code:** 400 BAD REQUEST <br />
+    **Content:** `{ error : "Could not edit review" }`
+
+* **Sample Call:**
+
+  ```javascript
+    $.ajax({
+      url: "/1400/reviews",
+      data: {text: "I have edited my review: This place was much better this time!", date: "2019-01-21", overall_score: 3, food_score: 4, service_score: 4, ambience_score: 2, is_recommended: true, tags: ["better", "good service", "tasty"},
+      type : "PUT",
+      success : function(r) {
+        console.log(r);
+      }
+    });
+  ```
