@@ -214,3 +214,48 @@ An `nvmrc` file is included if using [nvm](https://github.com/creationix/nvm).
       }
     });
   ```
+
+  **Delete Review**
+----
+  Delete a review that already exists in the database.
+
+* **URL**
+
+  /:id/reviews
+
+* **Method:**
+
+  `DELETE`
+  
+*  **URL Params**
+
+   **Required:**
+ 
+   `id=[integer] (between 1 and 10,000,000)`
+
+* **Data Params**
+
+  `{id: int}`
+
+* **Success Response:**
+
+  * **Code:** 204 NO CONTENT <br />
+    **Content:** `"Review successfully deleted!"`
+ 
+* **Error Response:**
+
+  * **Code:** 404 NOT FOUND <br />
+    **Content:** `{ error : "Could not delete review" }`
+
+* **Sample Call:**
+
+  ```javascript
+    $.ajax({
+      url: "/1400/reviews",
+      data: {id: 1241241},
+      type : "DELETE",
+      success : function(r) {
+        console.log(r);
+      }
+    });
+  ```
