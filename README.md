@@ -170,7 +170,7 @@ An `nvmrc` file is included if using [nvm](https://github.com/creationix/nvm).
     });
   ```
 
-  **Edit Review**
+**Edit Review**
 ----
   Edits a review that already exists in the database.
 
@@ -215,7 +215,7 @@ An `nvmrc` file is included if using [nvm](https://github.com/creationix/nvm).
     });
   ```
 
-  **Delete Review**
+**Delete Review**
 ----
   Delete a review that already exists in the database.
 
