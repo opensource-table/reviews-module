@@ -106,6 +106,7 @@ An `nvmrc` file is included if using [nvm](https://github.com/creationix/nvm).
 
   * **Code:** 200 OK <br />
     **Content:** 
+    
     ```javascript
       {
         id : 12,
