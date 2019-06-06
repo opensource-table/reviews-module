@@ -5,8 +5,8 @@ const moment = require('moment');
 const dbconf = require('../config/db_config.js');
 
 const Seed = {
-  foodWords: ['pot roast', 'chicken', 'sushi', 'marshmallows', 'pumpkin pie', 'wine'],
-  tagWords: ['groups', 'kids', 'gluten free', 'vegan'],
+  foodWords: ['pot roast', 'chicken', 'sushi', 'marshmallows', 'pumpkin pie', 'wine', 'good food'],
+  tagWords: ['groups', 'kids', 'gluten free', 'dairy free', 'trendy', 'new', 'open late', 'vegan'],
   noiseLevels: ['Quiet', 'Average', 'Loud'],
   colors: ['#d86441', '#bb6acd', '#6c8ae4', '#df4e96'],
   getRandomFoodWord() {
@@ -63,7 +63,10 @@ const Seed = {
   createRestaurants() {
     //  create 5 restaurants
     const restaurants = [];
-    for (let i = 0; i < 5; i++) {
+    for (let i = 0; i < 10000000; i++) {
+      if (i % 100000 === 0) {
+        console.log('restaurants: ', i);
+      }
       const restaurant = {};
       restaurant.name = Faker.lorem.word();
       restaurant.location = Faker.address.city().replace(/'/g, '');
@@ -94,9 +97,12 @@ const Seed = {
     return number[0];
   },
   createDiners() {
-    //  create 50 diners
+    //  create 5 million diners
     const diners = [];
-    for (let i = 0; i < 50; i++) {
+    for (let i = 0; i < 5000000; i++) {
+      if (i % 100000 === 0) {
+        console.log('diners: ', i);
+      }
       const diner = {};
       diner.firstname = Faker.name.firstName().replace(/'/g, '');
       diner.lastname = Faker.name.lastName().replace(/'/g, '');
@@ -109,9 +115,12 @@ const Seed = {
     return diners;
   },
   createReviews() {
-    //  create 600 reviews
+    //  create 50 million reviews
     const reviews = [];
-    for (let i = 0; i < 600; i++) {
+    for (let i = 0; i < 50000000; i++) {
+      if (i % 100000 === 0) {
+        console.log('review: ', i);
+      }
       const review = {};
       review.restaurant = Faker.random.number({ min: 1, max: 5 });
       review.diner = Faker.random.number({ min: 1, max: 50 });
@@ -142,7 +151,7 @@ const Seed = {
     return reviews;
   },
   insertRestaurants(restaurants, callback) {
-    //  insert 5 restaurants
+    //  insert 10 million restaurants
     const client = new Client({
       user: dbconf.role,
       host: dbconf.host,

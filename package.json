@@ -37,6 +37,7 @@
     "lodash": "^4.17.11",
     "mini-css-extract-plugin": "^0.7.0",
     "moment": "^2.24.0",
+    "mongoose": "^5.5.13",
     "pg": "^7.11.0",
     "prop-types": "^15.7.2",
     "react": "^16.8.6",
