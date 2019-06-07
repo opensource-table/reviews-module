@@ -1,0 +1,5 @@
+const foodWords = ['pot roast', 'chicken', 'sushi', 'marshmallows', 'pumpkin pie', 'wine', 'full bar', 'dessert'];
+const tagWords = ['groups', 'kids', 'gluten free', 'dairy free', 'trendy', 'new', 'open late', 'vegan'];
+
+[pr, c, s, m, pp, w, fb, d]
+[g, k, gf, df, t, n, ol, v]
