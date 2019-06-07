@@ -1,56 +1,51 @@
 const Faker = require('faker');
-const moment = require('moment');
 const fs = require('fs');
-const csvWriter = require('csv-write-stream');
-const writer = csvWriter();
+const writer = fs.createWriteStream('./restaurantData.txt');
 
-const createFakeRestaurantData = () => {
-  const noiseLevels = ['Quiet', 'Average', 'Loud'];
-  const fakeName = [];
-  const fakeLocation = [];
+function writeFakeRestaurantData(writer, data, encoding, callback) {
+  let i = 10000001;
+  write();
+  function write() {
+    let ok = true;
+    do {
+      i--;
+      if (i === 0) {
+        // last time!
+        writer.write(createFakeRestaurantData(i), encoding);
+      } else if (i === 10000000) {
+        ok = writer.write(('id,nm,loc,noise,rec_per,avg_ov,avg_fd,avg_srv,avg_amb,val_rat\n' + createFakeRestaurantData(i)), encoding);
+      } else {
+        // See if we should continue, or wait.
+        // Don't pass the callback, because we're not done yet.
+        if (i % 100000 === 0) {
+          console.log(i);
+        } 
+        ok = writer.write(createFakeRestaurantData(i), encoding);
+      }
+    } while (i > 0 && ok);
+    if (i > 0) {
+      // had to stop early!
+      // write some more once it drains
+      writer.once('drain', write);
+    }
+  }
+}
+
+const fakeName = [];
+const fakeLocation = [];
+
+const createFakeArrays = () => {
   for (let i = 0; i < 10000; i++) {
     fakeName.push(Faker.lorem.word());
     fakeLocation.push(Faker.address.city());
   }
-  writer.pipe(fs.createWriteStream('restaurantData.csv'));
-  for (let j = 0; j < 10000000; j++) {
-    if (j % 100000 === 0) {
-      console.log(j);
-    }
-    let randNum = Math.random();
-    writer.write({
-      id: j,
-      name: fakeName[Math.floor(Math.random() * 10000)],
-      location: fakeLocation[Math.floor(Math.random() * 10000)],
-      noise: noiseLevels[Math.floor(randNum * noiseLevels.length)],
-      rec_percent: 40 + (randNum * 60),
-      avg_overall: 1 + (randNum * 4),
-      avg_service: 1 + (randNum * 4),
-      avg_ambience: 1 + (randNum * 4),
-      avg_food: 1 + (randNum * 4),
-      value_rating: 1 + (randNum * 4),
-    })
-  }
-  writer.end();
-  console.log('done');
 }
 
-// const writeDataToFile = (array) => {
-//   fs.writeFileSync('fakeData.txt', array[0].toString(), (err) => {
-//     if (err) {
-//       throw err;
-//     }
-//   });
+const createFakeRestaurantData = (counter) => {
+  const noiseLevels = ['Quiet', 'Average', 'Loud'];
+  return `${counter},${fakeName[Math.floor(Math.random() * 10000)]},${fakeLocation[Math.floor(Math.random() * 10000)]},${noiseLevels[Math.floor(Math.random() * noiseLevels.length)]},${40 + (Math.random() * 60)},${1 + (Math.random() * 4)},${1 + (Math.random() * 4)},${1 + (Math.random() * 4)},${1 + (Math.random() * 4)},${1 + (Math.random() * 4)}\n`;
+}
 
-//   for (let i = 1; i <= array.length - 1; i += 1) {
-//     const fakeStr = array[i].toString();
-//     fs.appendFile('fakeData.txt', `\n${fakeStr}`, (err) => {
-//       if (err) {
-//         throw err;
-//       }
-//     });
-//   }
-// };
+createFakeArrays();
 
-createFakeRestaurantData();
-// writeDataToFile(dataToWrite);
+writeFakeRestaurantData(writer, 'utf-8');

@@ -1,55 +1,55 @@
 const Faker = require('faker');
 const moment = require('moment');
 const fs = require('fs');
-const csvWriter = require('csv-write-stream');
-const writer = csvWriter();
+const writer = fs.createWriteStream('./userData.txt');
 
-const createFakeUserData = () => {
-  const colors = ['#d86441', '#bb6acd', '#6c8ae4', '#df4e96'];
-  const fakeFirstNames = [];
-  const fakeLastNames = [];
-  const fakeCities = [];
-  const booleans = [true, false];
+function writeFakeUserData(writer, data, encoding, callback) {
+  let i = 5000001;
+  write();
+  function write() {
+    let ok = true;
+    do {
+      i--;
+      if (i === 0) {
+        // last time!
+        writer.write(createFakeUserData(i), encoding);
+      } else if (i === 5000000) {
+        ok = writer.write('id,f_nm,l_nm,cit,av_col,is_vip,tot_rev\n' + createFakeUserData(i), encoding);
+      } else {
+        // See if we should continue, or wait.
+        // Don't pass the callback, because we're not done yet.
+        if (i % 100000 === 0) {
+          console.log(i);
+        } 
+        ok = writer.write(createFakeUserData(i), encoding);
+      }
+    } while (i > 0 && ok);
+    if (i > 0) {
+      // had to stop early!
+      // write some more once it drains
+      writer.once('drain', write);
+    }
+  }
+}
+
+const fakeFirstNames = [];
+const fakeLastNames = [];
+const fakeCities = [];
+
+const createFakeArrays = () => {
   for (let i = 0; i < 10000; i++) {
     fakeFirstNames.push(Faker.name.firstName());
     fakeLastNames.push(Faker.name.lastName());
     fakeCities.push(Faker.address.city());
   }
-  writer.pipe(fs.createWriteStream('usersData.csv'));
-  for (let j = 0; j < 5000000; j++) {
-    if (j % 100000 === 0) {
-      console.log(j);
-    }
-    writer.write({
-      id: j,
-      first_name: fakeFirstNames[Math.floor(Math.random() * 10000)],
-      last_name: fakeLastNames[Math.floor(Math.random() * 10000)],
-      city: fakeCities[Math.floor(Math.random() * 10000)],
-      avatar_color: colors[Math.floor(Math.random() * 4)],
-      is_vip: booleans[Math.floor(Math.random() * 2)],
-      total_reviews: Math.floor(Math.random() * 50),
-    })
-  }
-  writer.end();
-  console.log('done');
 }
 
-// const writeDataToFile = (array) => {
-//   fs.writeFileSync('fakeData.txt', array[0].toString(), (err) => {
-//     if (err) {
-//       throw err;
-//     }
-//   });
+const createFakeUserData = (counter) => {
+  const colors = ['#d86441', '#bb6acd', '#6c8ae4', '#df4e96'];
+  const booleans = [true, false];
+  return `${counter},${fakeFirstNames[Math.floor(Math.random() * 10000)]},${fakeLastNames[Math.floor(Math.random() * 10000)]},${fakeCities[Math.floor(Math.random() * 10000)]},${colors[Math.floor(Math.random() * 4)]},${booleans[Math.floor(Math.random() * 2)]},${1 + Math.floor(Math.random() * 50)}\n`
+}
 
-//   for (let i = 1; i <= array.length - 1; i += 1) {
-//     const fakeStr = array[i].toString();
-//     fs.appendFile('fakeData.txt', `\n${fakeStr}`, (err) => {
-//       if (err) {
-//         throw err;
-//       }
-//     });
-//   }
-// };
+createFakeArrays();
 
-createFakeUserData();
-// writeDataToFile(dataToWrite);
+writeFakeUserData(writer, 'utf-8');
