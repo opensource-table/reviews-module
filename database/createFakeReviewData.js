@@ -1,10 +1,10 @@
 const Faker = require('faker');
 const moment = require('moment');
 const fs = require('fs');
-const writer = fs.createWriteStream('./reviewData.txt');
+const writer = fs.createWriteStream('./reviewData5.txt');
 
 function writeFakeReviewData(writer, data, encoding, callback) {
-  let i = 100000001;
+  let i = 100000000;
   write();
   function write() {
     let ok = true;
@@ -13,7 +13,7 @@ function writeFakeReviewData(writer, data, encoding, callback) {
       if (i === 0) {
         // last time!
         writer.write(createFakeReviewData(i), encoding);
-      } else if (i === 100000000) {
+      } else if (i === 9999999) {
         ok = writer.write('id,r_id,u_id,txt,date,ov_scr,fd_scr,srv_scr,amb_scr,val_scr,is_rec,tags\n' + createFakeReviewData(i), encoding);
       } else {
         // See if we should continue, or wait.
@@ -23,8 +23,8 @@ function writeFakeReviewData(writer, data, encoding, callback) {
         } 
         ok = writer.write(createFakeReviewData(i), encoding);
       }
-    } while (i > 0 && ok);
-    if (i > 0) {
+    } while (i > 80000000 && ok);
+    if (i > 80000000) {
       // had to stop early!
       // write some more once it drains
       writer.once('drain', write);
