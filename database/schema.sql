@@ -40,8 +40,8 @@ COPY reviews
 FROM '/Users/scotttorres/SDC-OpenSource-Table/slhodak-reviews-and-impressions/reviewData.txt' DELIMITER ',' CSV HEADER;
 
 COPY restaurants 
-FROM '/Users/scotttorres/SDC-OpenSource-Table/slhodak-reviews-and-impressions/restaurantData.txt' DELIMITER ',' CSV HEADER;
+FROM '/Users/scotttorres/SDC-OpenSource-Table/slhodak-reviews-and-impressions/restaurantDatatest.txt' DELIMITER ',' CSV HEADER;
 
 COPY users
-FROM '/Users/scotttorres/SDC-OpenSource-Table/slhodak-reviews-and-impressions/userData.txt' DELIMITER ',' CSV HEADER;
+FROM '/Users/scotttorres/SDC-OpenSource-Table/slhodak-reviews-and-impressions/userDatatest.txt' DELIMITER ',' CSV HEADER;
 

@@ -1,6 +1,6 @@
 const Faker = require('faker');
 const fs = require('fs');
-const writer = fs.createWriteStream('./restaurantDatatest.txt');
+const writer = fs.createWriteStream('./restaurantData.txt');
 
 function writeFakeRestaurantData(writer, data, encoding, callback) {
   let i = 10000000;

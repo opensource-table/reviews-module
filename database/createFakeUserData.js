@@ -1,7 +1,7 @@
 const Faker = require('faker');
 const moment = require('moment');
 const fs = require('fs');
-const writer = fs.createWriteStream('./userDatatest.txt');
+const writer = fs.createWriteStream('./userData.txt');
 
 function writeFakeUserData(writer, data, encoding, callback) {
   let i = 5000000;
