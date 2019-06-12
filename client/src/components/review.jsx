@@ -37,7 +37,7 @@ class Review extends React.Component {
         stars[i] = <span key={i} className={styles.reviewStarBlank} />;
       }
     }
-    const initials = review.firstname[0].toUpperCase() + review.lastname[0].toUpperCase();
+    const initials = review.first_name[0].toUpperCase() + review.last_name[0].toUpperCase();
     return (
       <div className={styles.singleReview}>
         <div className={styles.reviewer}>
@@ -47,7 +47,7 @@ class Review extends React.Component {
               : null}
             <div>{initials}</div>
           </div>
-          <p className={styles.name}>{review.firstname + review.lastname[0]}</p>
+          <p className={styles.name}>{review.first_name + ' ' + review.last_name[0]}</p>
           <p className={styles.city}>{review.city}</p>
           <div className={styles.reviewerStat}>
             <span className={styles.reviewIcon} /><p className={styles.reviewsCount}>{review.totalreviews} reviews</p>

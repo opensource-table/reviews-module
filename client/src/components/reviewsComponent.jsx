@@ -68,8 +68,9 @@ export default class Reviews extends React.Component {
     request
       .get(`http://localhost:3010/${restaurantId}/summary`)
       .then((res) => {
+        let parsedRes = JSON.parse(res.text);
         this.setState({
-          summary: res.body[0]
+          summary: parsedRes.rows[0]
         });
       })
       .catch(err => console.log(err));
@@ -80,9 +81,10 @@ export default class Reviews extends React.Component {
     request
       .get(`http://localhost:3010/${restaurantId}/reviews`)
       .then((res) => {
+        let parsed = JSON.parse(res.text);
         this.setState({
-          reviews: res.body,
-          showing: res.body
+          reviews: parsed.rows,
+          showing: parsed.rows
         }, () => {
           this.sortReviews();
           this.parseStarPercentages();
@@ -96,7 +98,12 @@ export default class Reviews extends React.Component {
     const tags = {};
     const { showing } = this.state;
     showing.forEach((review) => {
-      const reviewTags = review.tags.split(',');
+      let reviewTags;
+      if (review.tags) {
+        reviewTags = review.tags.split('/');
+      } else {
+        reviewTags = [];
+      }
       if (reviewTags[0]) {
         for (let i = 0; i < reviewTags.length; i++) {
           if (tags[reviewTags[i]]) {
@@ -116,12 +123,13 @@ export default class Reviews extends React.Component {
     const { reviews } = this.state;
     const ratingPercents = [0, 0, 0, 0, 0];
     reviews.forEach((review) => {
-      ratingPercents[review.overall - 1] += Math.round((1 / reviews.length) * 100);
+      ratingPercents[review.overall_score - 1] += Math.round((1 / reviews.length) * 100);
     });
     const reversed = [];
     for (let i = 4; i > -1; i--) {
       reversed.push([i, ratingPercents[i]]);
     }
+    console.log(reversed);
     this.setState({
       starPercentages: reversed
     });
@@ -207,7 +215,12 @@ export default class Reviews extends React.Component {
     }
     if (filters.size) {
       filtered = (filtered || reviews).filter((review) => {
-        const reviewTags = review.tags.split(',');
+        let reviewTags;
+        if (review.tags) {
+          reviewTags = review.tags.split('/');
+        } else {
+          reviewTags = [];
+        }
         return filters.isContainedBy(reviewTags);
       });
     }
@@ -287,6 +300,8 @@ export default class Reviews extends React.Component {
 
     return (
       <div className={styles.reviews}>
+        {console.log(summary)}
+        {console.log(starPercentages)}
         {summary && starPercentages
           ? (
             <Summary
