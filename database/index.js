@@ -4,8 +4,8 @@ const Pool = require('./queries.js');
 module.exports.getAllReviews = (restaurantId, callback) => {
   Pool.pool.query(`
     SELECT * FROM reviews
-    INNER JOIN users on reviews.u_id = users.id 
-    WHERE u_id = ${restaurantId}`, (err, results) => {
+    INNER JOIN users on reviews.user_id = users.id 
+    WHERE restaurant_id = ${restaurantId}`, (err, results) => {
       if (err) { 
         callback(err);
       } else {
