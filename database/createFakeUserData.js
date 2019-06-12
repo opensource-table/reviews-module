@@ -14,7 +14,7 @@ function writeFakeUserData(writer, data, encoding, callback) {
         // last time!
         writer.write(createFakeUserData(i), encoding);
       } else if (i === 4999999) {
-        ok = writer.write('id,f_nm,l_nm,cit,av_col,is_vip,tot_rev\n' + createFakeUserData(i), encoding);
+        ok = writer.write('id,first_name,last_name,city,avatar_color,is_vip,total_reviews\n' + createFakeUserData(i), encoding);
       } else {
         // See if we should continue, or wait.
         // Don't pass the callback, because we're not done yet.

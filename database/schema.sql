@@ -1,47 +1,47 @@
 CREATE TABLE restaurants (
-  id           serial primary key unique,
-  nm           varchar(50),
-  loc          varchar(50), 
-  noise        varchar(10),
-  rec_per      real,
-  avg_ov       real,
-  avg_fd       real,
-  avg_srv      real,
-  avg_amb      real,
-  val_rat      real
+  id                serial primary key unique,
+  name              varchar(50),
+  location          varchar(50), 
+  noise             varchar(10),
+  rec_percent       real,
+  avg_overall       real,
+  avg_food          real,
+  avg_service       real,
+  avg_ambience      real,
+  value_rating      real
 );
 
 CREATE TABLE users (
-  id       serial primary key unique,
-  f_nm     varchar(50),
-  l_nm     varchar(50),
-  cit      varchar(50),
-  av_col   varchar(10),
-  is_vip   boolean,
-  tot_rev  int
+  id             serial primary key unique,
+  first_name     varchar(50),
+  last_name      varchar(50),
+  city           varchar(50),
+  avatar_color   varchar(10),
+  is_vip         boolean,
+  total_reviews  int
 );
 
 CREATE TABLE reviews (
   id                 serial primary key unique,
-  r_id               bigint,
-  u_id               bigint,
-  txt                varchar(1000),
+  restaurant_id      bigint,
+  user_id            bigint,
+  text               varchar(1000),
   date               date,
-  ov_scr             smallint,
-  fd_scr             smallint,
-  srv_scr            smallint,
-  amb_scr            smallint,
-  val_scr            smallint,
-  is_rec             boolean,
-  tags               varchar(100)
+  overall_score      smallint,
+  food_score         smallint,
+  service_score      smallint,
+  ambience_score     smallint,
+  value_score        smallint,
+  is_recommended     boolean,
+  tags               varchar(300)
 );
 
 COPY reviews 
 FROM '/Users/scotttorres/SDC-OpenSource-Table/slhodak-reviews-and-impressions/reviewData.txt' DELIMITER ',' CSV HEADER;
 
 COPY restaurants 
-FROM '/Users/scotttorres/SDC-OpenSource-Table/slhodak-reviews-and-impressions/restaurantDatatest.txt' DELIMITER ',' CSV HEADER;
+FROM '/Users/scotttorres/SDC-OpenSource-Table/slhodak-reviews-and-impressions/restaurantData.txt' DELIMITER ',' CSV HEADER;
 
 COPY users
-FROM '/Users/scotttorres/SDC-OpenSource-Table/slhodak-reviews-and-impressions/userDatatest.txt' DELIMITER ',' CSV HEADER;
+FROM '/Users/scotttorres/SDC-OpenSource-Table/slhodak-reviews-and-impressions/userData.txt' DELIMITER ',' CSV HEADER;
 

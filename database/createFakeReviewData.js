@@ -14,7 +14,7 @@ function writeFakeReviewData(writer, data, encoding, callback) {
         // last time!
         writer.write(createFakeReviewData(i), encoding);
       } else if (i === 99999999) {
-        ok = writer.write('id,r_id,u_id,txt,date,ov_scr,fd_scr,srv_scr,amb_scr,val_scr,is_rec,tags\n' + createFakeReviewData(i), encoding);
+        ok = writer.write('id,restaurant_id,user_id,text,date,overall_score,food_score,service_score,ambience_score,value_score,is_recommended,tags\n' + createFakeReviewData(i), encoding);
       } else {
         // See if we should continue, or wait.
         // Don't pass the callback, because we're not done yet.
@@ -43,8 +43,8 @@ const createFakeArrays = () => {
 }
 
 const createFakeReviewData = (counter) => {
-  const foodWords = ['pr', 'c', 's', 'm', 'pp', 'w', 'fb', 'd']
-  const tagWords = ['g', 'k', 'gf', 'df', 't', 'n', 'ol', 'v']
+  const foodWords = ['pot roast', 'chicken', 'sushi', 'marshmallows', 'pumpkin pie', 'wine', 'full bar', 'dessert'];
+  const tagWords = ['groups', 'kids', 'gluten free', 'dairy free', 'trendy', 'new', 'open late', 'vegan'];
   const isRecommended = [true, false];
   let tags = '';
   for (let i = 0; i < 8; i++) {

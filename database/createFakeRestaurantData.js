@@ -13,7 +13,7 @@ function writeFakeRestaurantData(writer, data, encoding, callback) {
         // last time!
         writer.write(createFakeRestaurantData(i), encoding);
       } else if (i === 9999999) {
-        ok = writer.write(('id,nm,loc,noise,rec_per,avg_ov,avg_fd,avg_srv,avg_amb,val_rat\n' + createFakeRestaurantData(i)), encoding);
+        ok = writer.write(('id,name,location,noise,rec_percent,avg_overall,avg_food,avg_service,avg_ambience,value_rating\n' + createFakeRestaurantData(i)), encoding);
       } else {
         // See if we should continue, or wait.
         // Don't pass the callback, because we're not done yet.
