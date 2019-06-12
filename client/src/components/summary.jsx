@@ -56,7 +56,7 @@ function Summary(props) {
           </div>
           <div className={styles.recommend}>
             <div className={styles.recommendIcon} />
-            <span><strong>{summary.recommendPercent}% of people</strong> would recommend it to a friend</span>
+            <span><strong>{Number.parseFloat(summary.rec_percent).toFixed(2)}% of people</strong> would recommend it to a friend</span>
           </div>
         </div>
         <div className={styles.right}>
