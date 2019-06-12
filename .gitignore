@@ -32,3 +32,8 @@ public/bundle.js
 # Local Postgres Role Name
 config/db_config.js
 
+# Text files of fake data
+restaurantData.txt 
+reviewData.txt 
+userData.txt 
+

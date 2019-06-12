@@ -31,26 +31,26 @@ class Review extends React.Component {
     const { textOverflow } = this.state;
     const stars = [];
     for (let i = 0; i < 5; i++) {
-      if (review.overall >= i + 1) {
+      if (review.overall_score >= i + 1) {
         stars[i] = <span key={i} className={styles.reviewStar} />;
       } else {
         stars[i] = <span key={i} className={styles.reviewStarBlank} />;
       }
     }
-    const initials = review.firstname[0].toUpperCase() + review.lastname[0].toUpperCase();
+    const initials = review.first_name[0].toUpperCase() + review.last_name[0].toUpperCase();
     return (
       <div className={styles.singleReview}>
         <div className={styles.reviewer}>
-          <div className={styles.initialsIcon} style={{ backgroundColor: review.avatarcolor }}>
+          <div className={styles.initialsIcon} style={{ backgroundColor: review.avatar_color }}>
             {review.isvip
               ? <div className={styles.vipLabel}>VIP</div>
               : null}
             <div>{initials}</div>
           </div>
-          <p className={styles.name}>{review.firstname + review.lastname[0]}</p>
+          <p className={styles.name}>{review.first_name + ' ' + review.last_name[0]}</p>
           <p className={styles.city}>{review.city}</p>
           <div className={styles.reviewerStat}>
-            <span className={styles.reviewIcon} /><p className={styles.reviewsCount}>{review.totalreviews} reviews</p>
+            <span className={styles.reviewIcon} /><p className={styles.reviewsCount}>{review.total_reviews} reviews</p>
           </div>
         </div>
         <div className={styles.reviewDetails}>
@@ -62,19 +62,19 @@ class Review extends React.Component {
           </div>
           <div className={styles.ratings}>
             <span className={styles.ratingName}>Overall&nbsp;</span>
-            <span className={styles.rating}>{review.overall}
+            <span className={styles.rating}>{review.overall_score}
               <span className={styles.dot}>&middot;</span>
             </span>
             <span className={styles.ratingName}>Food&nbsp;</span>
-            <span className={styles.rating}>{review.food}
+            <span className={styles.rating}>{review.food_score}
               <span className={styles.dot}>&middot;</span>
             </span>
             <span className={styles.ratingName}>Service&nbsp;</span>
-            <span className={styles.rating}>{review.service}
+            <span className={styles.rating}>{review.service_score}
               <span className={styles.dot}>&middot;</span>
             </span>
             <span className={styles.ratingName}>Ambience&nbsp;</span>
-            <span className={styles.rating}>{review.ambience}</span>
+            <span className={styles.rating}>{review.ambience_score}</span>
           </div>
           <p ref={(node) => { this.text = node; }} className={styles.reviewTextPartial}>{review.text}</p>
           <div className={styles.reportHelpful}>

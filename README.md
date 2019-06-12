@@ -73,12 +73,12 @@ An `nvmrc` file is included if using [nvm](https://github.com/creationix/nvm).
 
 ### Restful API Routes
 
-| Endpoint      | Type   | Operation                                         |
-|---------------|--------|---------------------------------------------------|
-| `/:id/reviews`| GET    | Get all reviews for a specific restaurant         |
-| `/:id/reviews`| POST   | Create a new review for a specific restaurant     |
-| `/:id/reviews`| PUT    | Edit an existing review for a specific restaurant |
-| `/:id/reviews`| DELETE | Delete a review for a specific restaurant         |
+| Endpoint                         | Type   | Operation                                         |
+|----------------------------------|--------|---------------------------------------------------|
+| `api/restaurants/:id/reviews`    | GET    | Get all reviews for a specific restaurant         |
+| `api/restaurants/:id/reviews`    | POST   | Create a new review for a specific restaurant     |
+| `api/restaurants/:id/reviews/:id`| PUT    | Edit an existing review for a specific restaurant |
+| `api/restaurants/:id/reviews/:id`| DELETE | Delete a review for a specific restaurant         |
 
 **Get All Reviews**
 ----
@@ -86,7 +86,7 @@ An `nvmrc` file is included if using [nvm](https://github.com/creationix/nvm).
 
 * **URL**
 
-  /:id/reviews
+  api/restaurants/:id/reviews
 
 * **Method:**
 
@@ -105,7 +105,20 @@ An `nvmrc` file is included if using [nvm](https://github.com/creationix/nvm).
 * **Success Response:**
 
   * **Code:** 200 OK <br />
-    **Content:** `{id : 12, text: "This place was great! Highly recommend!", date: "2019-02-27", overall_score: 4, food_score: 3, service_score: 3, ambience_score: 5, is_recommended: true, tags: ["great food", "wonderful ambience", "fried chicken"}`
+    **Content:** 
+    ```javascript
+      {
+        id : 12,
+        text: "This place was great! Highly recommend!",
+        date: "2019-02-27",
+        overall_score: 4,
+        food_score: 3,
+        service_score: 3,
+        ambience_score: 5,
+        is_recommended: true,
+        tags: ["great food", "wonderful ambience", "fried chicken"]
+      }
+    ```
  
 * **Error Response:**
 
@@ -116,7 +129,7 @@ An `nvmrc` file is included if using [nvm](https://github.com/creationix/nvm).
 
   ```javascript
     $.ajax({
-      url: "/1400/reviews",
+      url: "api/restaurants/1400/reviews",
       dataType: "json",
       type : "GET",
       success : function(r) {
@@ -131,7 +144,7 @@ An `nvmrc` file is included if using [nvm](https://github.com/creationix/nvm).
 
 * **URL**
 
-  /:id/reviews
+  api/restaurants/:id/reviews
 
 * **Method:**
 
@@ -144,8 +157,18 @@ An `nvmrc` file is included if using [nvm](https://github.com/creationix/nvm).
    `id=[integer] (between 1 and 10,000,000)`
 
 * **Data Params**
-
-  `{text: "string", date: "stringified date", overall_score: int, food_score: int, service_score: int, ambience_score: int, is_recommended: boolean, tags: [Array of strings]}`
+  ```javascript
+    {
+      text: "string",
+      date: "stringified date",
+      overall_score: int,
+      food_score: int,
+      service_score: int,
+      ambience_score: int,
+      is_recommended: boolean,
+      tags: [Array of strings]
+    }
+  ```
 
 * **Success Response:**
 
@@ -161,7 +184,7 @@ An `nvmrc` file is included if using [nvm](https://github.com/creationix/nvm).
 
   ```javascript
     $.ajax({
-      url: "/1400/reviews",
+      url: "api/restaurants/1400/reviews",
       data: {text: "This place was awful! Definitely do not come here!", date: "2019-01-12", overall_score: 1, food_score: 1, service_score: 1, ambience_score: 2, is_recommended: false, tags: ["awful", "bad service", "cold food"},
       type : "POST",
       success : function(r) {
@@ -176,7 +199,7 @@ An `nvmrc` file is included if using [nvm](https://github.com/creationix/nvm).
 
 * **URL**
 
-  /:id/reviews
+  api/restaurants/:id/reviews/:id
 
 * **Method:**
 
@@ -186,11 +209,22 @@ An `nvmrc` file is included if using [nvm](https://github.com/creationix/nvm).
 
    **Required:**
  
-   `id=[integer] (between 1 and 10,000,000)`
+   Restaurant id: `id=[integer] (between 1 and 10,000,000)`
+   Review id: `id=[integer] (between 1 and 100,000,000)`
 
 * **Data Params**
-
-  `{text: "string", date: "stringified date", overall_score: int, food_score: int, service_score: int, ambience_score: int, is_recommended: boolean, tags: [Array of strings]}`
+  ```javascript
+    {
+      text: "string",
+      date: "stringified date",
+      overall_score: int,
+      food_score: int,
+      service_score: int,
+      ambience_score: int,
+      is_recommended: boolean,
+      tags: [Array of strings]
+    }
+  ```
 
 * **Success Response:**
 
@@ -206,7 +240,7 @@ An `nvmrc` file is included if using [nvm](https://github.com/creationix/nvm).
 
   ```javascript
     $.ajax({
-      url: "/1400/reviews",
+      url: "api/restaurants/1400/reviews/550000",
       data: {text: "I have edited my review: This place was much better this time!", date: "2019-01-21", overall_score: 3, food_score: 4, service_score: 4, ambience_score: 2, is_recommended: true, tags: ["better", "good service", "tasty"},
       type : "PUT",
       success : function(r) {
@@ -221,7 +255,7 @@ An `nvmrc` file is included if using [nvm](https://github.com/creationix/nvm).
 
 * **URL**
 
-  /:id/reviews
+  api/restaurants/:id/reviews/:id
 
 * **Method:**
 
@@ -231,11 +265,15 @@ An `nvmrc` file is included if using [nvm](https://github.com/creationix/nvm).
 
    **Required:**
  
-   `id=[integer] (between 1 and 10,000,000)`
+   Restaurant id: `id=[integer] (between 1 and 10,000,000)`
+   Review id: `id=[integer] (between 1 and 100,000,000)`
 
 * **Data Params**
-
-  `{id: int}`
+  ```javascript
+    {
+      id: int
+    }
+  ```
 
 * **Success Response:**
 
@@ -251,8 +289,8 @@ An `nvmrc` file is included if using [nvm](https://github.com/creationix/nvm).
 
   ```javascript
     $.ajax({
-      url: "/1400/reviews",
-      data: {id: 1241241},
+      url: "api/restaurants/1400/reviews/5500000",
+      data: {id: 5500000},
       type : "DELETE",
       success : function(r) {
         console.log(r);

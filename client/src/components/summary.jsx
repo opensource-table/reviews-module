@@ -9,7 +9,7 @@ function Summary(props) {
   const { handleRatingClick } = props;
   const stars = [];
   for (let i = 0; i < 5; i++) {
-    if (summary.averageOverall >= i + 1) {
+    if (summary.avg_overall >= i + 1) {
       stars[i] = <span key={i} className={styles.reviewStar} />;
     } else {
       stars[i] = <span key={i} className={styles.reviewStarBlank} />;
@@ -30,23 +30,23 @@ function Summary(props) {
             <div>
               {stars}
             </div>
-            <p>{summary.averageOverall} based on recent ratings</p>
+            <p>{summary.avg_overall} based on recent ratings</p>
           </div>
           <div className={styles.overallRatings}>
             <div className={styles.food}>
-              <p className={styles.rating}>{summary.averageFood}</p>
+              <p className={styles.rating}>{summary.avg_food}</p>
               <p>Food</p>
             </div>
             <div className={styles.service}>
-              <p className={styles.rating}>{summary.averageService}</p>
+              <p className={styles.rating}>{summary.avg_service}</p>
               <p>Service</p>
             </div>
             <div className={styles.ambience}>
-              <p className={styles.rating}>{summary.averageAmbience}</p>
+              <p className={styles.rating}>{summary.avg_ambience}</p>
               <p>Ambience</p>
             </div>
             <div className={styles.value}>
-              <p className={styles.rating}>{summary.valueRating}</p>
+              <p className={styles.rating}>{summary.value_rating}</p>
               <p>Value</p>
             </div>
           </div>
@@ -56,7 +56,7 @@ function Summary(props) {
           </div>
           <div className={styles.recommend}>
             <div className={styles.recommendIcon} />
-            <span><strong>{summary.recommendPercent}% of people</strong> would recommend it to a friend</span>
+            <span><strong>{Number.parseFloat(summary.rec_percent).toFixed(2)}% of people</strong> would recommend it to a friend</span>
           </div>
         </div>
         <div className={styles.right}>
