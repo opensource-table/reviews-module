@@ -28,42 +28,41 @@ module.exports.getSummary = (restaurantId, callback) => {
 };
 
 module.exports.createReview = (reviewData, callback) => {
-  const client = new Client({
-    user: dbconf.role,
-    host: dbconf.host,
-    database: 'reviews',
-    password: dbconf.password,
-    port: 5432
-  });
-
-  const insertReview = `INSERT INTO reviews
-    (
-      restaurant,
-      diner,
-      text,
-      date,
-      overall,
-      food,
-      service,
-      ambience,
-      wouldrecommend,
-      tags
-    ) 
-    VALUES
-    (
-      ${reviewData.restaurant},
-      ${reviewData.diner},
-      ${reviewData.text},
-      ${reviewData.date},
-      ${reviewData.overall},
-      ${reviewData.food},
-      ${reviewData.service},
-      ${reviewData.ambience},
-      ${reviewData.wouldrecommend},
-      ${reviewData.tags},
-    )`;
-  
-    makeQuery(client, insertReview, callback);
+  console.log(reviewData.text);
+  Pool.pool.query(`
+  INSERT INTO reviews (
+    id,
+    restaurant_id,
+    user_id,
+    text,
+    date,
+    overall_score,
+    food_score,
+    service_score,
+    ambience_score,
+    value_score,
+    is_recommended,
+    tags
+  ) VALUES (
+    nextval('reviews_id_seq_override'),
+    ${reviewData.restaurant_id},
+    ${reviewData.user_id},
+    '${reviewData.text}',
+    '${reviewData.date}',
+    ${reviewData.overall_score},
+    ${reviewData.food_score},
+    ${reviewData.service_score},
+    ${reviewData.ambience_score},
+    ${reviewData.value_score},
+    '${reviewData.is_recommended}',
+    '${reviewData.tags}'
+  )`, (err) => {
+    if (err) {
+      callback(err);
+    } else {
+      callback(null);
+    }
+  })
 }
 
 module.exports.editReview = (reviewData, callback) => {
