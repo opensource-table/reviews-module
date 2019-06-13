@@ -1,11 +1,13 @@
 const path = require('path');
 const cors = require('cors');
 const express = require('express');
+const bodyParser = require('body-parser');
 const db = require('../database/index.js');
 
 const app = express();
 
 app.use(cors());
+app.use(bodyParser.json())
 app.use(express.static(path.resolve(__dirname, '../public')));
 
 // Gets files from public folder
@@ -45,8 +47,10 @@ app.get('/:id/reviews', (req, res) => {
 });
 
 app.post('/:id/reviews', (req, res) => {
+  console.log(req.body);
   db.createReview(req.body, (err) => {
     if (err) {
+      console.log(err);
       res.status(422).end();
     } else {
       res.status(201).send('Successfully created review.');
