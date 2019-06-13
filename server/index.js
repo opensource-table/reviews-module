@@ -47,7 +47,6 @@ app.get('/:id/reviews', (req, res) => {
 });
 
 app.post('/:id/reviews', (req, res) => {
-  console.log(req);
   db.createReview(req.body, (err) => {
     if (err) {
       console.log(err);
