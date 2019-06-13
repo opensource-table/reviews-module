@@ -37,3 +37,5 @@ restaurantData.txt
 reviewData.txt 
 userData.txt 
 
+# New Relic Config File
+newrelic.js
