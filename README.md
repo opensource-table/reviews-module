@@ -76,6 +76,7 @@ An `nvmrc` file is included if using [nvm](https://github.com/creationix/nvm).
 | Endpoint                         | Type   | Operation                                         |
 |----------------------------------|--------|---------------------------------------------------|
 | `api/restaurants/:id/reviews`    | GET    | Get all reviews for a specific restaurant         |
+| `api/restaurants/:id/summary`    | GET    | Get restuarant specific information for given id  |
 | `api/restaurants/:id/reviews`    | POST   | Create a new review for a specific restaurant     |
 | `api/restaurants/:id/reviews/:id`| PUT    | Edit an existing review for a specific restaurant |
 | `api/restaurants/:id/reviews/:id`| DELETE | Delete a review for a specific restaurant         |
@@ -106,18 +107,25 @@ An `nvmrc` file is included if using [nvm](https://github.com/creationix/nvm).
 
   * **Code:** 200 OK <br />
     **Content:** 
+<<<<<<< HEAD
+    
+=======
+>>>>>>> Fix javascript markdown syntax for get request
     ```javascript
-      {
+      [{
         id : 12,
+        restaurant_id: 12345,
+        user_id: 54321,
         text: "This place was great! Highly recommend!",
         date: "2019-02-27",
         overall_score: 4,
         food_score: 3,
         service_score: 3,
         ambience_score: 5,
+        value_score: 4,
         is_recommended: true,
-        tags: ["great food", "wonderful ambience", "fried chicken"]
-      }
+        tags: "great food/wonderful ambience/fried chicken"
+      }, ... ]
     ```
  
 * **Error Response:**
@@ -130,6 +138,65 @@ An `nvmrc` file is included if using [nvm](https://github.com/creationix/nvm).
   ```javascript
     $.ajax({
       url: "api/restaurants/1400/reviews",
+      dataType: "json",
+      type : "GET",
+      success : function(r) {
+        console.log(r);
+      }
+    });
+  ```
+
+**Get Restaurant Information**
+----
+  Returns restaurant specific json data.
+
+* **URL**
+
+  api/restaurants/:id/summary
+
+* **Method:**
+
+  `GET`
+  
+*  **URL Params**
+
+   **Required:**
+ 
+   `id=[integer] (between 1 and 10,000,000)`
+
+* **Data Params**
+
+  None
+
+* **Success Response:**
+
+  * **Code:** 200 OK <br />
+    **Content:** 
+    ```javascript
+      {
+        id : 138492,
+        name: "The Bird",
+        location: "San Francisco",
+        noise: "Quiet,
+        rec_percent: 98.43,
+        avg_overall: 4.31,
+        avg_food: 4.52,
+        avg_service: 3.24,
+        avg_ambience: 2.43,
+        value_rating: 4.32
+      }
+    ```
+ 
+* **Error Response:**
+
+  * **Code:** 404 NOT FOUND <br />
+    **Content:** `{ error : "Restaurant not found." }`
+
+* **Sample Call:**
+
+  ```javascript
+    $.ajax({
+      url: "api/restaurants/1400/summary",
       dataType: "json",
       type : "GET",
       success : function(r) {
@@ -159,14 +226,17 @@ An `nvmrc` file is included if using [nvm](https://github.com/creationix/nvm).
 * **Data Params**
   ```javascript
     {
+      restaurant_id: int,
+      user_id: int,
       text: "string",
       date: "stringified date",
       overall_score: int,
       food_score: int,
       service_score: int,
       ambience_score: int,
+      value_score: int,
       is_recommended: boolean,
-      tags: [Array of strings]
+      tags: "string"
     }
   ```
 
@@ -215,14 +285,18 @@ An `nvmrc` file is included if using [nvm](https://github.com/creationix/nvm).
 * **Data Params**
   ```javascript
     {
+      id: int,
+      restaurant_id: int,
+      user_id: int,
       text: "string",
       date: "stringified date",
       overall_score: int,
       food_score: int,
       service_score: int,
       ambience_score: int,
+      value_score: int,
       is_recommended: boolean,
-      tags: [Array of strings]
+      tags: "string"
     }
   ```
 
