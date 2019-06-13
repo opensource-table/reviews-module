@@ -107,10 +107,6 @@ An `nvmrc` file is included if using [nvm](https://github.com/creationix/nvm).
 
   * **Code:** 200 OK <br />
     **Content:** 
-<<<<<<< HEAD
-    
-=======
->>>>>>> Fix javascript markdown syntax for get request
     ```javascript
       [{
         id : 12,
