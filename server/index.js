@@ -7,7 +7,7 @@ const db = require('../database/index.js');
 const app = express();
 
 app.use(cors());
-app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({ extended: false }))
 app.use(express.static(path.resolve(__dirname, '../public')));
 
 // Gets files from public folder
@@ -47,7 +47,7 @@ app.get('/:id/reviews', (req, res) => {
 });
 
 app.post('/:id/reviews', (req, res) => {
-  console.log(req.body);
+  console.log(req);
   db.createReview(req.body, (err) => {
     if (err) {
       console.log(err);
