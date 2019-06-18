@@ -23,6 +23,7 @@ app.get('/:id', (req, res) => {
 
 // Gets restaurant specific information
 app.get('/:id/summary', (req, res) => {
+  console.log('in summary');
   db.getSummary(req.params.id, (err, result) => {
     if (err) {
       res.status(500);
@@ -36,6 +37,7 @@ app.get('/:id/summary', (req, res) => {
 
 // Gets reviews for a specific restaurant
 app.get('/:id/reviews', (req, res) => {
+  console.log('in reviews');
   db.getAllReviews(req.params.id, (err, result) => {
     if (err) {
       res.status(500);
