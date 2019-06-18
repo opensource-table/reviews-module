@@ -12,6 +12,7 @@ app.use(express.static(path.resolve(__dirname, '../public')));
 
 // Gets files from public folder
 app.get('/:id', (req, res) => {
+  console.log('in id get');
   if (!req.params.id) {
     res.status(400);
     res.end();
