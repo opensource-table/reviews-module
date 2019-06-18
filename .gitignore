@@ -36,6 +36,9 @@ config/db_config.js
 restaurantData.txt 
 reviewData.txt 
 userData.txt 
+restaurantData.txt.gz 
+reviewData.txt.gz 
+userData.txt.gz 
 
 # New Relic Config File
 newrelic.js
