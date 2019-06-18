@@ -2,6 +2,7 @@ const { Client } = require('pg');
 const Pool = require('./queries.js');
 
 module.exports.getAllReviews = (restaurantId, callback) => {
+  console.log('reviews: ', restaurantId);
   let query = 'SELECT * FROM reviews INNER JOIN users on reviews.user_id = users.id WHERE restaurant_id = $1';
   let value = [restaurantId];
   Pool.pool.query(query, value, (err, results) => {
