@@ -3,8 +3,10 @@ const cors = require('cors');
 const express = require('express');
 const bodyParser = require('body-parser');
 const db = require('../database/index.js');
+const redis = require('redis');
 
 const app = express();
+const client = redis.createClient(6379);
 
 app.use(cors());
 app.use(bodyParser.urlencoded({ extended: false }))
@@ -12,8 +14,8 @@ app.use(express.static(path.resolve(__dirname, '../public')));
 
 // Gets files from public folder
 
-app.get('/loaderio-4f5562cf5633f31d665faa2ad364b9ad', (req, res) => {
-  res.sendFile('loaderio-4f5562cf5633f31d665faa2ad364b9ad.txt', { root: path.resolve(__dirname, '../public') });
+app.get('/loaderio-aea42d407cb0b1b935785c8f31b4ec4d', (req, res) => {
+  res.sendFile('loaderio-aea42d407cb0b1b935785c8f31b4ec4d.txt', { root: path.resolve(__dirname, '../public') });
 });
 
 app.get('/:id', (req, res) => {
@@ -26,29 +28,46 @@ if (!req.params.id) {
 });
 
 // Gets restaurant specific information
+// Gets restaurant specific information
 app.get('/:id/summary', (req, res) => {
-db.getSummary(req.params.id, (err, result) => {
-    if (err) {
-      res.status(500);
-      res.end();
+  const summaryRedisKey = `summary:${req.params.id}`;
+  return client.get(summaryRedisKey, (err, summary) => {
+    if(summary) {
+      res.status(200).send(summary);
     } else {
-      res.status(200);
-      res.send(result);
+      db.getSummary(req.params.id, (err, result) => {
+        if (err) {
+          res.status(500);
+          res.end();
+        } else {
+          client.setex(`summary:${req.params.id}`, 3600, JSON.stringify(result));
+          res.status(200);
+          res.send(result);
+        }
+      });
     }
   });
 });
 
 // Gets reviews for a specific restaurant
-app.get('/:id/reviews', (req, res) => {  
-db.getAllReviews(req.params.id, (err, result) => {
-    if (err) {
-      res.status(500);
-      res.end();
+app.get('/:id/reviews', (req, res) => {
+  const reviewsRedisKey = `reviews:${req.params.id}`;
+  return client.get(reviewsRedisKey, (err, review) => {
+    if (review) {
+      res.status(200).send(review);
     } else {
-      res.status(200);
-      res.send(result);
+      db.getAllReviews(req.params.id, (err, result) => {
+        if (err) {
+          res.status(500);
+          res.end();
+        } else {
+          client.setex(`review:${req.params.id}`, 3600, JSON.stringify(result));
+          res.status(200);
+          res.send(result);
+        }
+      });
     }
-  });
+  })
 });
 
 app.post('/:id/reviews', (req, res) => {
