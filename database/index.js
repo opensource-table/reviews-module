@@ -6,6 +6,7 @@ module.exports.getAllReviews = (restaurantId, callback) => {
   let value = [restaurantId];
   Pool.pool.query(query, value, (err, results) => {
       if (err) { 
+        console.log(err);
         callback(err);
       } else {
         callback(null, results);

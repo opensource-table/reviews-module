@@ -65,8 +65,9 @@ export default class Reviews extends React.Component {
 
   getSummaryData() {
     const { restaurantId } = this.props;
+    console.log(restaurantId);
     request
-      .get(`http://ec2-3-15-13-135.us-east-2.compute.amazonaws.com:3010/${restaurantId}/summary`)
+      .get(`/${restaurantId}/summary`)
       .then((res) => {
         let parsedRes = JSON.parse(res.text);
         this.setState({
@@ -79,7 +80,7 @@ export default class Reviews extends React.Component {
   getReviewsData() {
     const { restaurantId } = this.props;
     request
-      .get(`http://ec2-3-15-13-135.us-east-2.compute.amazonaws.com:3010/${restaurantId}/reviews`)
+      .get(`/${restaurantId}/reviews`)
       .then((res) => {
         let parsed = JSON.parse(res.text);
         this.setState({

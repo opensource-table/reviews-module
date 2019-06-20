@@ -11,8 +11,13 @@ app.use(bodyParser.urlencoded({ extended: false }))
 app.use(express.static(path.resolve(__dirname, '../public')));
 
 // Gets files from public folder
+
+app.get('/loaderio-4f5562cf5633f31d665faa2ad364b9ad', (req, res) => {
+  res.sendFile('loaderio-4f5562cf5633f31d665faa2ad364b9ad.txt', { root: path.resolve(__dirname, '../public') });
+});
+
 app.get('/:id', (req, res) => {
-  if (!req.params.id) {
+if (!req.params.id) {
     res.status(400);
     res.end();
   } else {
@@ -22,8 +27,7 @@ app.get('/:id', (req, res) => {
 
 // Gets restaurant specific information
 app.get('/:id/summary', (req, res) => {
-  console.log('in summary');
-  db.getSummary(req.params.id, (err, result) => {
+db.getSummary(req.params.id, (err, result) => {
     if (err) {
       res.status(500);
       res.end();
@@ -35,9 +39,8 @@ app.get('/:id/summary', (req, res) => {
 });
 
 // Gets reviews for a specific restaurant
-app.get('/:id/reviews', (req, res) => {
-  console.log('in reviews');
-  db.getAllReviews(req.params.id, (err, result) => {
+app.get('/:id/reviews', (req, res) => {  
+db.getAllReviews(req.params.id, (err, result) => {
     if (err) {
       res.status(500);
       res.end();

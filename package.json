@@ -18,7 +18,7 @@
   "scripts": {
     "server-dev": "nodemon ./server/server.js",
     "react-dev": "webpack -d -w",
-    "build": "webpack -d",
+    "build": "webpack -p",
     "start": "node ./server/server.js",
     "add": "eslint '*/**' --ignore-path .lintignore && git add -A",
     "pg-setup": "brew install postgres && brew services start postgres && createdb reviews && psql reviews",
@@ -38,6 +38,7 @@
     "mini-css-extract-plugin": "^0.7.0",
     "moment": "^2.24.0",
     "mongoose": "^5.5.13",
+    "newrelic": "^5.10.0",
     "pg": "^7.11.0",
     "prop-types": "^15.7.2",
     "react": "^16.8.6",
